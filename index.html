@@ -37,6 +37,7 @@
     <section id="expose">
       <header>
         <h2>Return of the Party Horn</h2>
+        <p>Press p to play sound </p>
       </header>
       <img src="assets/images/no-image.png" alt="No image selected" />
       <select name="horn" id="horn-select">
@@ -47,9 +48,10 @@
       </select>
       <div id="volume-controls">
         <input type="range" name="volume" id="volume" value="50" min="0" max="100" step="1" />
+        <span id="vol-value">50</span>
         <img src="assets/icons/volume-level-2.svg" alt="Volume level 2" />
       </div>
-      <button>Play Sound</button>
+      <button id="play-btn">Play Sound</button>
       <audio class="hidden" src=""></audio>
     </section>
   </main>
@@ -65,7 +67,44 @@
     if (shouldApplyClass) {
         body.classList.add('blue');
     }  
+    
+  </script>
+
+  <style>
+    #expose.flash {
+      animation: flash-border 0.3s ease-in-out;
+    }
+    @keyframes flash-border {
+      0% { border: 3px solid gold; }
+      100% { border: none; }
+    }
+  </style>
+
+  <script>
+    const volumeSlider = document.getElementById('volume');
+    const volValue = document.getElementById('vol-value');
+    const playButton = document.getElementById("play-btn");
+    volValue.textContent = volumeSlider.value
+    // Feat 1 : vol dispaly
+    volumeSlider.addEventListener('input', () => {
+      volValue.textContent = volumeSlider.value;
+    });
+    // F 2: key short cut 
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'p') {
+        playButton.click();
+      }
+    });
+    // F 3: Animation
+    playButton.addEventListener('click', () => {
+      const expose = document.getElementById('expose');
+      expose.classList.add('flash');
+      setTimeout(() => expose.classList.remove('flash'), 300);
+    });
   </script>
 </body>
 
 </html>
+
+
+
